@@ -1,3 +1,6 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i python3 ./shell.nix
+
 import base64
 import time
 import datetime

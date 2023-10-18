@@ -5,10 +5,10 @@ Forward data from [Qingping API](https://developer.qingping.co/main/openApi) to 
 ## Usage
 
 ```bash
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt # skip if using nix
 cp config.example.py config.py
 vim config.py # fill in your own config
-python3 main.py
+python3 main.py # ./main.py in Nix
 ```
 
 You can use systemd to daemonize this script.
