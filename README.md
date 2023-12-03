@@ -8,10 +8,14 @@ Forward data from [Qingping API](https://developer.qingping.co/main/openApi) to 
 python3 -m pip install -r requirements.txt # skip if using nix
 cp config.example.py config.py
 vim config.py # fill in your own config
-python3 main.py # ./main.py in Nix
+python3 main.py # ./main.py in Nix, or
+python3 fetch_history.py --begin 2023-11-27T13:00:00 --end 2023-12-03T12:00:00 --batch-size 1000 YOUR_MAC_ADDR
 ```
 
-You can use systemd to daemonize this script.
+Scripts:
+
+* `main.py` is used to fetch latest data from API and forward to InfluxDB. You can use systemd to daemonize it.
+* `fetch_history.py` is used to fetch historical data from API and send to InfluxDB in a batched way. You can use it to fill in the gap of data when `main.py` is not running.
 
 ## Configuration
 
