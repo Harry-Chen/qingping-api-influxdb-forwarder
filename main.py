@@ -7,7 +7,7 @@ import datetime
 import logging
 
 from influxdb import InfluxDBClient
-from func_timeout import set_func_timeout, FunctionTimedOut
+from func_timeout import func_set_timeout, FunctionTimedOut
 import requests
 import schedule
 
@@ -107,6 +107,8 @@ def _do_forward():
         if TOKEN is None or TOKEN_EXPIRY_TIME is None or datetime.datetime.now() > TOKEN_EXPIRY_TIME:
             refresh_token()
         data = get_data()
+        if len(data['devices']) == 0:
+            logger.warning(f'No devices found: {data}')
         for d in data['devices']:
             upload_device_data(d)
     except Exception as e:
