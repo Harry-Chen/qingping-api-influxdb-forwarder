@@ -1,3 +1,4 @@
 influxdb
 requests
 schedule
+func-timeout

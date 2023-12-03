@@ -4,6 +4,7 @@ let python-packages = ps: with ps; [
   influxdb
   requests
   schedule
+  func-timeout
 ];
 
 in

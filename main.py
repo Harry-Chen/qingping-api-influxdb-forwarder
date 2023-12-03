@@ -7,6 +7,7 @@ import datetime
 import logging
 
 from influxdb import InfluxDBClient
+from func_timeout import set_func_timeout, FunctionTimedOut
 import requests
 import schedule
 
@@ -94,6 +95,14 @@ def upload_device_data(device):
 
 @schedule.repeat(schedule.every(POLL_INTERVAL).seconds)
 def qingping_forward():
+    try:
+        _do_forward()
+    except FunctionTimedOut as e:
+        logger.error(f'Forward timeout: {e}')
+
+
+@func_set_timeout(5)
+def _do_forward():
     try:
         if TOKEN is None or TOKEN_EXPIRY_TIME is None or datetime.datetime.now() > TOKEN_EXPIRY_TIME:
             refresh_token()
